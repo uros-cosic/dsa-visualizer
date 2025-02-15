@@ -1,0 +1,36 @@
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
+import { AlgorithmContent, AlgorithmContext } from "../../lib/context/algorithm"
+import { generateMaze } from "../../lib/data/maze"
+import Cell, { CellProps } from "../cell"
+
+const Maze = () => {
+    const [maze, setMaze] = useState<CellProps[][]>([])
+
+    const { algorithm } = useContext<AlgorithmContent>(AlgorithmContext)
+
+    const ref = useRef<HTMLDivElement | null>(null)
+
+    const createMaze = useCallback(() => {
+        if (ref.current) {
+            const newMaze = generateMaze(algorithm, ref.current.clientWidth)
+            setMaze(newMaze)
+        }
+
+    }, [algorithm.name, ref])
+
+    useEffect(() => {
+        createMaze()
+    }, [algorithm.name, ref])
+
+    return (
+        <div className="flex flex-wrap w-full" ref={ref}>
+            {
+                maze.map(row => (
+                    row.map(cell => <Cell {...cell} />)
+                ))
+            }
+        </div>
+    )
+}
+
+export default Maze

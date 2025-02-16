@@ -8,6 +8,7 @@ export type Algorithm = {
     hasStarted?: boolean
     supportsWeights?: boolean
     supportsNegativeWeights?: boolean
+    fn?: (...args: any) => any
 }
 
 type Props = {

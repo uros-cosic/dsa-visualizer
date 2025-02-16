@@ -41,6 +41,33 @@ const Legend = () => {
                 />
                 <span>Cell with walls</span>
             </div>
+            <div className="flex gap-2 items-center">
+                <Cell
+                    x={0}
+                    y={0}
+                    walls={[1, 1, 1, 1]}
+                    visited={true}
+                />
+                <span>Cell that has been visited</span>
+            </div>
+            <div className="flex gap-2 items-center">
+                <Cell
+                    x={0}
+                    y={0}
+                    walls={[1, 1, 1, 1]}
+                    isPath={true}
+                />
+                <span>Cell that is a path from start to end cell</span>
+            </div>
+            <div className="flex gap-2 items-center">
+                <Cell
+                    x={0}
+                    y={0}
+                    walls={[1, 1, 1, 1]}
+                    weight={99}
+                />
+                <span>Weighted cell</span>
+            </div>
             {!!algorithm.name && (
                 <div className="col-span-4 flex flex-col gap-3">
                     <h2 className="text-lg font-medium">{algorithm.name}</h2>

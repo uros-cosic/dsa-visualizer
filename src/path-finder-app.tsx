@@ -17,7 +17,7 @@ const PathFinderApp = () => {
                     <Select
                         disabled={!!algorithm.hasStarted}
                         defaultValue={algorithm.name}
-                        onValueChange={val => setAlgorithm({ name: val, description: data['path-finder'].find(a => a.name === val)!.description })}
+                        onValueChange={val => setAlgorithm({ ...data['path-finder'].find(a => a.name === val)! })}
                     >
                         <SelectTrigger className="w-fit">
                             <SelectValue placeholder="Choose an algorithm" />

@@ -44,3 +44,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Adding an algorithm
+
+### Path finder
+Simply add an algorithm object (name, description, solve function...) to `src/lib/data/algorithms.ts`. Solve function recieves two arguments, maze which is an 2d array of cells that represent the maze, and setMaze, which is the useState set function that is used mainly to animate (visualize) the solving process.
+
+### Sort
+TBD

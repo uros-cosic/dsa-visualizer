@@ -5,6 +5,7 @@ export type AlgorithmContent = {
         name?: string
         description?: string
         hasStarted?: boolean
+        fn?: (...args: any) => any
     }
     setAlgorithm: (a: any) => void
 }

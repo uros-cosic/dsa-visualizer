@@ -18,7 +18,9 @@ export const generateMaze = (algorithm: Algorithm, containerWidth: number) => {
                 visited: false,
                 isEnd: false,
                 isStart: false,
-                weight: 0, // TODO: add weight for weighted algs
+                weight: algorithm.supportsWeights
+                    ? Math.ceil(Math.random() * 99)
+                    : 0,
                 x: j,
                 y: i,
             })
@@ -77,7 +79,10 @@ const breakWall = (cellOne: CellProps, cellTwo: CellProps) => {
     }
 }
 
-const getNeighbours = (cell: CellProps, res: CellProps[][]): CellProps[] => {
+export const getNeighbours = (
+    cell: CellProps,
+    res: CellProps[][]
+): CellProps[] => {
     const neighbours: CellProps[] = []
 
     if (cell.y > 0) neighbours.push(res[cell.y - 1][cell.x]) // Top

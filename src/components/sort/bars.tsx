@@ -1,67 +1,65 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { AlgorithmContent, AlgorithmContext } from "../../lib/context/algorithm"
-import { generateMaze } from "../../lib/data/maze"
-import { Algorithm } from "../algorithm-provider"
-import Cell, { CellProps } from "../cell"
+import { generateBars } from "../../lib/data/bars"
+import Bar, { BarProps } from "../bar"
 import { Button } from "../ui/button"
 
-const Maze = () => {
-    const [maze, setMaze] = useState<CellProps[][]>([])
-
-    const { algorithm, setAlgorithm } = useContext<AlgorithmContent>(AlgorithmContext)
+const Bars = () => {
+    const [bars, setBars] = useState<BarProps[]>([])
+    const { setAlgorithm, algorithm } = useContext<AlgorithmContent>(AlgorithmContext)
 
     const ref = useRef<HTMLDivElement | null>(null)
 
-    const createMaze = useCallback(() => {
+    const createBars = useCallback(() => {
         if (ref.current) {
-            const newMaze = generateMaze(algorithm, ref.current.clientWidth)
-            setMaze(newMaze)
+            const bars = generateBars(ref.current.getBoundingClientRect().y, ref.current.clientWidth)
+            setBars(bars)
         }
-
     }, [algorithm.name])
 
-    const handleSolve = async () => {
+    const handleSort = async () => {
         if (!algorithm.fn) return
 
         setAlgorithm((prev: Algorithm) => ({ ...prev, hasStarted: true }))
 
-        await algorithm.fn(maze, setMaze)
+        await algorithm.fn(bars, setBars)
 
         setAlgorithm((prev: Algorithm) => ({ ...prev, hasStarted: false }))
     }
 
     useEffect(() => {
-        createMaze()
-    }, [createMaze])
+        createBars()
+    }, [createBars])
 
     return (
-        <div className="grid gap-3">
+        <div className="grid gap-10">
             <div className="flex items-center gap-5">
                 <Button
                     disabled={algorithm.hasStarted || !algorithm.fn}
-                    onClick={handleSolve}
+                    onClick={handleSort}
                     className="max-w-44 w-full"
                 >
-                    Solve
+                    Sort
                 </Button>
                 <Button
                     disabled={algorithm.hasStarted}
-                    onClick={createMaze}
+                    onClick={createBars}
                     className="max-w-44 w-full"
                     variant={"secondary"}
                 >
                     Reset
                 </Button>
             </div>
-            <div className="flex flex-wrap w-full" ref={ref}>
-                {
-                    maze.map(row => (
-                        row.map(cell => <Cell key={`${cell.x}-${cell.y}`} {...cell} />)
-                    ))
-                }
+            <div className="flex w-full transform rotate-180 -scale-x-[1]" ref={ref}>
+                {bars.map((bar, idx) => (
+                    <Bar
+                        key={idx}
+                        {...bar}
+                    />
+                ))}
             </div>
         </div>
     )
 }
 
-export default Maze
+export default Bars

@@ -19,7 +19,9 @@ export const generateMaze = (algorithm: Algorithm, containerWidth: number) => {
                 isEnd: false,
                 isStart: false,
                 weight: algorithm.supportsWeights
-                    ? Math.ceil(Math.random() * 99)
+                    ? !algorithm.supportsNegativeWeights
+                        ? Math.ceil(Math.random() * 99)
+                        : Math.ceil(Math.random() * 99 - 2) || 1
                     : 0,
                 x: j,
                 y: i,
@@ -29,7 +31,9 @@ export const generateMaze = (algorithm: Algorithm, containerWidth: number) => {
     }
 
     res[0][0].isStart = true
+    res[0][0].weight = 0
     res[rowsNum - 1][columnsNum - 1].isEnd = true
+    res[rowsNum - 1][columnsNum - 1].weight = 0
 
     generateMazeRec(res[0][0], res, {})
 

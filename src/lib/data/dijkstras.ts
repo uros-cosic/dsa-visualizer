@@ -23,7 +23,7 @@ export const solve = async (
         }
 
         curr.visited = true
-        await new Promise((r) => setTimeout(r, 5))
+        await new Promise((r) => setTimeout(r, 1))
 
         setMaze((prevMaze) => {
             const newMaze = prevMaze.map((row) =>
@@ -59,7 +59,7 @@ export const solve = async (
     path.reverse()
 
     for (const n of path) {
-        await new Promise((r) => setTimeout(r, 5))
+        await new Promise((r) => setTimeout(r, 1))
 
         setMaze((prevMaze) => {
             const newMaze = prevMaze.map((row) =>

@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import Legend from "./components/path-finder/legend"
 import Maze from "./components/path-finder/maze"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select"
@@ -9,6 +9,10 @@ import { algortihms as data } from "./lib/data/algorithms"
 const PathFinderApp = () => {
     const { algorithm, setAlgorithm } = useContext<AlgorithmContent>(AlgorithmContext)
 
+    useEffect(() => {
+        setAlgorithm({})
+    }, [])
+
     return (
         <main className="py-10 max-w-screen-2xl w-full px-2 mx-auto">
             <div className="grid gap-5">
@@ -16,7 +20,6 @@ const PathFinderApp = () => {
                     <h1 className="text-2xl font-semibold">Path finder</h1>
                     <Select
                         disabled={!!algorithm.hasStarted}
-                        defaultValue={algorithm.name}
                         onValueChange={val => setAlgorithm({ ...data['path-finder'].find(a => a.name === val)! })}
                     >
                         <SelectTrigger className="w-fit">

@@ -47,8 +47,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Adding an algorithm
 
-### Path finder
-Simply add an algorithm object (name, description, solve function...) to `src/lib/data/algorithms.ts`. Solve function recieves two arguments, maze which is an 2d array of cells that represent the maze, and setMaze, which is the useState set function that is used mainly to animate (visualize) the solving process.
+Simply add the algorithm object (name, description, solve function...) in `src/lib/algorithms.ts`. Solve function takes two arguments - maze/bars (representing maze for the path finder or bars for the sorting) and setMaze/setBars (represeting reacts use state function for the maze - path finder or bars - sorting)
 
-### Sort
-TBD
+***TODO:***
+
+- [ ] Refactor (redundancy, types...)
+- [ ] Write tests
